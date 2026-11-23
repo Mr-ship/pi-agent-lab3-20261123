@@ -1,15 +1,10 @@
 # Pi Agent 源码获取、依赖安装与本地编译指导
 
-> **说明**：本报告以课程作业原始 Markdown 文档为骨架，保留全部原始要求，并在每个任务下加入「实验记录」「截图」和「我的理解」。所有命令均在本机 Windows PowerShell 中实际执行，输出与截图一一对应。
-
 ## 基本信息
 
 - 姓名：龚健
-- GitHub 登录名：Mr-ship
-- 实验日期：2026 年 11 月 23 日
 - 实验环境：Windows、Node.js v24.18.0、npm 11.16.0、Git 2.55.0.windows.3
-- 源码仓库（小组组织内 fork）：https://github.com/shizishizi111/pi-hunnu-2026
-- 本地源码目录：`C:\Users\lenovo\pi-lab3\pi-hunnu-2026`（全英路径）
+- 源码仓库：https://github.com/shizishizi111/pi-hunnu-2026
 - 源码分支：`main`，提交编号：`c3cc91632d0a1950fb122605b190233f2aa0006e`
 - 本地构建产物版本：`1.5.2`；第一次实践课全局安装的 `pi` 为 `1.5.0`
 
@@ -20,13 +15,7 @@
 2. （这儿实际上是第二次作业就做了的）下载课程仓库源码，并截图。
 3. 在仓库根目录安装依赖，说明安装命令的作用并截图。
 4. 完成本地编译，检查构建产物并验证其能够运行，并截图。
-5. 记录下所遇到的困难，以及解决过程，描述并截图（重点）
-
-
-第一次实践课侧重安装和使用 Pi 客户端，本次侧重建立本地源码开发环境。完成后，应能够说明“源码在哪里、依赖装在哪里、构建执行了什么、正在运行哪个版本”。本次不要求构建独立 EXE，也不要求部署大模型权重。
-
-
-**仓库与版本：** 使用第二次实践作业，各小组组织内fork的仓库地址。
+5. 记录下所遇到的困难，以及解决过程，描述并截图.
 
 
 ## 任务一 实验准备：检查和安装开发工具
@@ -78,13 +67,7 @@ Node.js 要求来自本小组组织内仓库 [package.json 的 engines 字段（
 
 *图1 教师检查原有环境，Node.js 为 v22.23.2。*
 
-根项目的最低版本不代表每个工作区依赖都只要求同一个版本。图2中，旧分支安装时的 `@earendil-works/gondolin@0.12.0` 声明需要 Node.js `>=23.6.0`，因此 Node.js 22.23.2 虽满足根项目声明，仍触发了依赖的 `EBADENGINE` 警告。**为便于本次实验统一环境，建议使用 Node.js 24 LTS。** 这是结合实操截图给出的课程建议，不是把根项目声明改成了 `>=24`。 已安装了node但是版本不对的，可参考“已使用 fnm 的同学：切换到 Node.js 24” 小节进行版本更新。
-
-![旧环境安装时的版本与依赖警告](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/practice/assets/02-Pi-Agent-source-build/image-02-install-warning.png)
-
 *图2 旧分支、Node.js 22 环境下的安装输出：出现 EBADENGINE、弃用提示和依赖审计结果。*
-
-如果已经使用 Node.js 24 LTS，可跳过安装；若使用其他版本，应同时核对项目及安装日志中的依赖要求。已使用版本管理工具的同学，通过原有工具切换即可。
 
 ### 2. 未安装 Node.js 时：同时安装 Node.js 和 npm
 
@@ -134,7 +117,7 @@ fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
 *图3 教师通过 fnm 切换到 Node.js v24.22.3，并确认 npm 为 11.19.1；实际补丁版本可能不同。*
 
 
-## 任务二 下载课程仓库源码（上次实践已做的可略过，为了教学过程完整，此步骤保留）
+## 任务二 下载课程仓库源码
 
 ### 1. 建立实验目录并下载源码
 
@@ -467,7 +450,6 @@ node .\packages\coding-agent\dist\bundle\cli.js
 
 报告说明：本次如何确保运行的是本地源码？源码入口与 `dist/bundle/cli.js` 入口分别适合什么场景？
 
-## 提交方式：
 ## 遇到的困难与解决过程（重点）
 
 ### 困难 1：终端里 `node` 不是系统安装的 24，而是工具自带的 22
@@ -528,10 +510,3 @@ git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 clone --depth 1 --filt
 | 依赖装在哪里 | 仓库根目录的 `node_modules`，由根目录 `package-lock.json` 锁定；npm workspaces 统一管理 `packages/*` 等子包，没有给子包单独建锁文件 |
 | 构建执行了什么 | 根 `scripts.build` 依次进入 telemetry、schema、chord、tui、codemode、mcp、ai、durable、env、agent、coding-agent 等子包执行各自 build：TypeScript 编译、模型目录数据生成、资源拷贝，最后打包出 `dist/bundle/cli.js`（84 个文件，9.4 MiB） |
 | 正在运行哪个版本 | 本地源码入口与构建产物均为 `1.5.2`；全局 `pi` 为第一次实践课安装的 `1.5.0`，本次用 `.\pi-test.bat` 与本地路径运行以区分两者 |
-
-本次不要求构建独立 EXE，也不要求部署大模型权重；报告中的模型数据仅指模型目录与能力配置。
-
-
-将实验报告和截图上传到个人 Git 仓库，在课程作业仓库按第一次实践课的方式提交 Issue，填写报告地址。Issue 名称：`实践课3：Pi Agent源码安装与编译 [姓名拼音]`。
-
-最好是复制原始作业markdown文档后，再贴图并写上自己的理解/作业过程。 避免只有截图提交。
