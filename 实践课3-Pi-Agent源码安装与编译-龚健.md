@@ -1,24 +1,17 @@
 # 实践课3：Pi Agent 源码安装与编译 实验报告
 
-> 本报告只记录本人的实验操作、真实命令输出与截图。
-
-
-
 ## 基本信息
 
 - 姓名：龚健
-- GitHub 登录名：Mr-ship
-- 实验日期：2026 年 11 月 23 日
 - 实验环境：Windows、Node.js v24.18.0、npm 11.16.0、Git 2.55.0.windows.3
 - 源码仓库（小组组织内 fork）：https://github.com/shizishizi111/pi-hunnu-2026
-- 本地源码目录：`C:\Users\lenovo\pi-lab3\pi-hunnu-2026`（全英路径）
 - 源码分支：`main`，提交编号：`c3cc91632d0a1950fb122605b190233f2aa0006e`
 - 本地构建产物版本：`1.5.2`；第一次实践课全局安装的 `pi` 为 `1.5.0`
 
 
 ## 任务一 实验准备：检查和安装开发工具
 
-### 实验记录 S1（我的实际操作）
+### 实验记录 S1
 
 在实验终端逐条执行，实际输出：
 
@@ -41,7 +34,7 @@ Hello, Node.js!
 
 ## 任务二 下载课程仓库源码
 
-### 实验记录 S2（我的实际操作）
+### 实验记录 S2
 
 按作业要求在全英路径下克隆小组组织内 fork 的仓库：
 
@@ -63,7 +56,7 @@ git status --short          # 无输出，工作区干净
 
 ## 任务三 阅读配置，确认安装与编译的依据
 
-### 实验记录 S3（我的实际操作）
+### 实验记录 S3
 
 用编辑器查看了根目录 `README.md`、`package.json`、`package-lock.json`、`packages/` 以及 `packages/coding-agent/package.json`，并在终端中显示关键定义：
 
@@ -106,7 +99,7 @@ npm run build:offline         # Rebuild using existing model data without networ
 
 ## 任务四 安装项目依赖
 
-### 实验记录 S4（我的实际操作）
+### 实验记录 S4
 
 确认当前目录含根 `package.json` 后执行：
 
@@ -142,7 +135,7 @@ Write-Output "INSTALL_EXIT=$LASTEXITCODE"   # INSTALL_EXIT=0
 
 ## 任务五 本地编译与构建产物验证
 
-### 实验记录 S5（我的实际操作）
+### 实验记录 S5
 
 ```powershell
 # 首次构建（联网获取模型目录数据，退出码 0）
@@ -177,7 +170,7 @@ node .\packages\coding-agent\dist\bundle\cli.js --version  # 1.5.2
 
 ## 任务六 启动本地源码版本并完成一次会话
 
-### 实验记录 S6（我的实际操作）
+### 实验记录 S6
 
 ```powershell
 .\pi-test.bat --version   # 1.5.2
@@ -270,14 +263,6 @@ git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 clone --depth 1 --filt
 | 依赖装在哪里 | 仓库根目录的 `node_modules`，由根目录 `package-lock.json` 锁定；npm workspaces 统一管理 `packages/*` 等子包，没有给子包单独建锁文件 |
 | 构建执行了什么 | 根 `scripts.build` 依次进入 telemetry、schema、chord、tui、codemode、mcp、ai、durable、env、agent、coding-agent 等子包执行各自 build：TypeScript 编译、模型目录数据生成、资源拷贝，最后打包出 `dist/bundle/cli.js`（84 个文件，9.4 MiB） |
 | 正在运行哪个版本 | 本地源码入口与构建产物均为 `1.5.2`；全局 `pi` 为第一次实践课安装的 `1.5.0`，本次用 `.\pi-test.bat` 与本地路径运行以区分两者 |
-
-本次不要求构建独立 EXE，也不要求部署大模型权重；报告中的模型数据仅指模型目录与能力配置。
-
-
-将实验报告和截图上传到个人 Git 仓库，在课程作业仓库按第一次实践课的方式提交 Issue，填写报告地址。Issue 名称：`实践课3：Pi Agent源码安装与编译 [姓名拼音]`。
-
-最好是复制原始作业markdown文档后，再贴图并写上自己的理解/作业过程。 避免只有截图提交。
-
 ## 提交信息
 
 - 报告与截图仓库：https://github.com/Mr-ship/pi-agent-lab3-20261123
