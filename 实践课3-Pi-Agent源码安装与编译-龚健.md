@@ -74,13 +74,13 @@ Hello, Node.js!
 
 Node.js 要求来自本小组组织内仓库 [package.json 的 engines 字段（教师组织内的仓库地址，仅作参考）](https://github.com/hunnuOpenSourceSoftware2026/pi-hunnu-2026/blob/main/package.json)，不是根据截图中的版本推测。项目根配置没有指定某个固定 npm 版本。
 
-![检查 Node.js 版本](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/assets/02-Pi-Agent-source-build/image-01-node-version.png)
+![检查 Node.js 版本](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/practice/assets/02-Pi-Agent-source-build/image-01-node-version.png)
 
 *图1 教师检查原有环境，Node.js 为 v22.23.2。*
 
 根项目的最低版本不代表每个工作区依赖都只要求同一个版本。图2中，旧分支安装时的 `@earendil-works/gondolin@0.12.0` 声明需要 Node.js `>=23.6.0`，因此 Node.js 22.23.2 虽满足根项目声明，仍触发了依赖的 `EBADENGINE` 警告。**为便于本次实验统一环境，建议使用 Node.js 24 LTS。** 这是结合实操截图给出的课程建议，不是把根项目声明改成了 `>=24`。 已安装了node但是版本不对的，可参考“已使用 fnm 的同学：切换到 Node.js 24” 小节进行版本更新。
 
-![旧环境安装时的版本与依赖警告](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/assets/02-Pi-Agent-source-build/image-02-install-warning.png)
+![旧环境安装时的版本与依赖警告](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/practice/assets/02-Pi-Agent-source-build/image-02-install-warning.png)
 
 *图2 旧分支、Node.js 22 环境下的安装输出：出现 EBADENGINE、弃用提示和依赖审计结果。*
 
@@ -129,7 +129,7 @@ fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
 
 初始化后重新执行版本切换和检查。无需为了照抄截图而安装固定的 npm 11.19.1，使用 Node.js 所附的 npm 并记录结果即可。
 
-![使用 fnm 安装并切换 Node.js 24](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/assets/02-Pi-Agent-source-build/image-03-node24.png)
+![使用 fnm 安装并切换 Node.js 24](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/practice/assets/02-Pi-Agent-source-build/image-03-node24.png)
 
 *图3 教师通过 fnm 切换到 Node.js v24.22.3，并确认 npm 为 11.19.1；实际补丁版本可能不同。*
 
@@ -312,7 +312,7 @@ Write-Output "INSTALL_EXIT=$LASTEXITCODE"   # INSTALL_EXIT=0
 - `deprecated`：依赖包已弃用或不再维护的提示，不等同于安装命令必然失败。
 - `vulnerabilities`：本次依赖树的审计结果，需要记录和分析。不要直接照着输出执行 `npm audit fix --force`，它可能改变课程使用的依赖版本。
 
-![main 分支下重新安装依赖的输出](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/assets/02-Pi-Agent-source-build/image-04-install-main.png)
+![main 分支下重新安装依赖的输出](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/practice/assets/02-Pi-Agent-source-build/image-04-install-main.png)
 
 *图4 Node.js 24、main 分支下的另一轮安装输出，显示安装汇总和 found 0 vulnerabilities。*
 
@@ -331,7 +331,7 @@ npm run build
 
 首次构建需要联网获取模型目录数据。这里的“模型数据”指模型目录、能力等配置数据，**不是下载大模型权重**。本地客户端构建与模型推理服务是两件事。依据：[README](https://github.com/hunnuOpenSourceSoftware2026/pi-hunnu-2026#development)、[AI 包脚本](https://github.com/hunnuOpenSourceSoftware2026/pi-hunnu-2026/blob/main/packages/ai/package.json)。
 
-![执行 npm run build 的过程](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/assets/02-Pi-Agent-source-build/image-05-build-progress.png)
+![执行 npm run build 的过程](https://raw.githubusercontent.com/hunnuOpenSourceSoftware2026/assignments/main/practice/assets/02-Pi-Agent-source-build/image-05-build-progress.png)
 
 *图5 教师执行 npm run build，日志依次进入多个子包，并开始 AI 包的模型目录生成。*
 

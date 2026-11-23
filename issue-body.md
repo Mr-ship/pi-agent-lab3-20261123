@@ -10,4 +10,4 @@
 - 源码仓库（小组组织内 fork）：https://github.com/shizishizi111/pi-hunnu-2026
 
 > Issue 名称：`实践课3：Pi Agent源码安装与编译 gongjian`
-> 报告与 14 张截图已上传到上述公开仓库的 `main` 分支，可直接复制「基本信息」「作业链接」两部分提交 Issue。
+> 报告与 13 张实验截图已上传到上述公开仓库的 `main` 分支，可直接复制「基本信息」「作业链接」两部分提交 Issue。
